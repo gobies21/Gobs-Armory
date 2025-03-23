@@ -1,0 +1,25 @@
+
+modLoader="javafml"
+loaderVersion = "[47,)"
+license = "All rights reserved"
+
+[[mods]]
+modId="gobsarmory"
+version="1.0.0"
+displayName="Gob's Armory"
+authors="gobies"
+description='''Special and unique endgame weapons for your adventures!'''
+
+[[dependencies.gobsarmory]]
+modId="forge"
+mandatory= true
+versionRange = "[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.gobsarmory]]
+modId="minecraft"
+mandatory= true
+versionRange = "[1.20.1]"
+ordering="NONE"
+side="BOTH"
