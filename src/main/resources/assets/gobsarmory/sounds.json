@@ -1,0 +1,11 @@
+{
+  "pixel_scythe": {
+    "subtitle": "subtitles.pixel_scythe",
+    "sounds": [
+      {
+        "name": "gobsarmory:pixel_scythe",
+        "stream": false
+      }
+    ]
+  }
+}

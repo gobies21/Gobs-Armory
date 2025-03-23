@@ -1,6 +1,7 @@
 package net.gobies.gobsarmory;
 
 import com.mojang.logging.LogUtils;
+import net.gobies.gobsarmory.init.GobsArmorySounds;
 import net.gobies.gobsarmory.item.ModCreativeModeTabs;
 import net.gobies.gobsarmory.item.ModItems;
 import net.gobies.gobsarmory.item.weapons.MaliciousScytheItem;
@@ -39,6 +40,7 @@ public class GobsArmory {
         ModCreativeModeTabs.register(modBus);
 
         //ModLootModifiers.register(modBus);
+        GobsArmorySounds.REGISTRY.register(modBus);
 
         ModItems.register(modBus);
 
