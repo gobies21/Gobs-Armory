@@ -1,18 +1,32 @@
 package net.gobies.gobsarmory;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Forge's config APIs
 @Mod.EventBusSubscriber(modid = GobsArmory.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class Config{}
+public class Config {
+    public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    public static final ForgeConfigSpec SPEC;
+
+    public static ForgeConfigSpec.ConfigValue<Integer> MALICIOUS_SCYTHE_HIT_AMOUNT;
+    public static int malicious_scythe_hit_amount;
+
+    public Config() {
+    }
+
+    @SubscribeEvent
+    static void onLoad(ModConfigEvent.Loading configEvent) {
+        malicious_scythe_hit_amount = MALICIOUS_SCYTHE_HIT_AMOUNT.get();
+
+    }
+
+    static {
+        BUILDER.push("Malicious Scythe");
+        MALICIOUS_SCYTHE_HIT_AMOUNT = BUILDER.comment("Amount of hits to activate the devastating attack").define("Amount", 8);
+        BUILDER.pop();
+
+        SPEC = BUILDER.build();
+    }
+}

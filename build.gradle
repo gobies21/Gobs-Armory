@@ -155,6 +155,9 @@ dependencies {
 
     implementation fg.deobf("curse.maven:model-gap-fix-676136:5200949")
 
+    implementation fg.deobf("curse.maven:itemphysic-lite-270441:6045994")
+    implementation fg.deobf("curse.maven:creativecore-257814:6109933")
+
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html

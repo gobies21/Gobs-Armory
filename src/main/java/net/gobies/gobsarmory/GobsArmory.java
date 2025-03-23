@@ -46,7 +46,7 @@ public class GobsArmory {
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
         public static void queueServerWork ( int tick, Runnable action){

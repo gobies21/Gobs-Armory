@@ -1,5 +1,6 @@
 package net.gobies.gobsarmory.item.weapons;
 
+import net.gobies.gobsarmory.Config;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.SweepingEdgeEnchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -24,6 +26,7 @@ import java.util.Objects;
 
 public class MaliciousScytheItem extends SwordItem {
     public int hitCount = 0;
+
     public MaliciousScytheItem(Properties properties) {
         super(new MaliciousScytheTier(), 26, -3.4F, new Properties().stacksTo(1).durability(2468).rarity(Rarity.EPIC));
 
@@ -78,7 +81,7 @@ public class MaliciousScytheItem extends SwordItem {
             if (attackStrength >= 1.0F) { //attack energy
                 Level level = pAttacker.level();
                 hitCount++;
-                if (hitCount % 5 == 0) {
+                if (hitCount % Config.MALICIOUS_SCYTHE_HIT_AMOUNT.get() == 0) {
                     radius = 8; // change to 8x8 area damage every 5 hits
                     SoundEvent pixelScythe = (SoundEvent) BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("gobsarmory:pixel_scythe"));
                     level.playSound(null, targetX, targetY, targetZ, Objects.requireNonNull(pixelScythe), SoundSource.PLAYERS, 0.5F, 1.5F);
@@ -94,8 +97,8 @@ public class MaliciousScytheItem extends SwordItem {
                 // total damage to be applied to the attackers target
                 float totalDamage = baseDamage + enchantmentBonus;
 
-                // area damage is half of the total damage
-                float areaDamage = totalDamage / 2.0F;
+                // area damage is half of the total damage for 4x4 area and full damage for 8x8 area
+                float areaDamage = (radius == 8) ? totalDamage : totalDamage / 2.0F;
                 // get all entities in the area
                 List<LivingEntity> nearbyEntities = level.getEntitiesOfClass(LivingEntity.class, area);
 
@@ -113,7 +116,9 @@ public class MaliciousScytheItem extends SwordItem {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        if (!(enchantment instanceof SweepingEdgeEnchantment) && (enchantment.category == EnchantmentCategory.WEAPON)) {
+        if (enchantment instanceof SweepingEdgeEnchantment) {
+            return false;
+        } else if (enchantment.category == EnchantmentCategory.WEAPON) {
             return true;
         } else {
             return super.canApplyAtEnchantingTable(stack, enchantment);
@@ -121,11 +126,13 @@ public class MaliciousScytheItem extends SwordItem {
     }
 
 
+
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.literal("§2A weapon formed from malicious software"));
         pTooltipComponents.add(Component.literal("§aDeals large area damage to nearby entities"));
-        pTooltipComponents.add(Component.literal("§aEvery §35 §ahits deal a devastating attack §3" + hitCount +"§3/5"));
+        pTooltipComponents.add(Component.literal(String.format("§aEvery §3%d §ahits deal a devastating attack §3" + hitCount +"§3/%d", Config.MALICIOUS_SCYTHE_HIT_AMOUNT.get(), Config.MALICIOUS_SCYTHE_HIT_AMOUNT.get())));
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 }
+
