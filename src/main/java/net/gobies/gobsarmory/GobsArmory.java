@@ -39,7 +39,6 @@ public class GobsArmory {
 
         ModCreativeModeTabs.register(modBus);
 
-        //ModLootModifiers.register(modBus);
         GobsArmorySounds.REGISTRY.register(modBus);
 
         ModItems.register(modBus);
