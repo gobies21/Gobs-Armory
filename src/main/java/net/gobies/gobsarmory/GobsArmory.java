@@ -48,6 +48,7 @@ public class GobsArmory {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
+
         public static void queueServerWork ( int tick, Runnable action){
             if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER) {
                 workQueue.add(new AbstractMap.SimpleEntry<>(action, tick));

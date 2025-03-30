@@ -1,13 +1,19 @@
 package net.gobies.gobsarmory.item.weapons;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import net.gobies.gobsarmory.Config;
+import net.gobies.gobsarmory.particle.MaliciousScytheParticles;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -24,20 +30,41 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+import static net.gobies.gobsarmory.particle.MaliciousScytheParticles.spawnParticles;
+
+
 public class MaliciousScytheItem extends SwordItem {
     public int hitCount = 0;
 
     public MaliciousScytheItem(Properties properties) {
-        super(new MaliciousScytheTier(), 26, -3.3F, new Properties().stacksTo(1).durability(2468).rarity(Rarity.EPIC));
-
+        super(new MaliciousScytheTier(), 0, 0, new Properties().stacksTo(1).durability(1500).rarity(Rarity.EPIC));
     }
+
+    //speed is appearing before attack sometimes for unknown reason
+    @Override
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+        Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create(super.getAttributeModifiers(slot, stack));
+        if (slot == EquipmentSlot.MAINHAND) {
+            modifiers.removeAll(Attributes.ATTACK_DAMAGE);
+            modifiers.removeAll(Attributes.ATTACK_SPEED);
+
+            int attackDamage = Config.MALICIOUS_SCYTHE_ATTACK_DAMAGE.get() - 1;
+            modifiers.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon Attack Damage", attackDamage, AttributeModifier.Operation.ADDITION));
+
+            float attackSpeed = (float) ((float) -4.0F + Config.MALICIOUS_SCYTHE_ATTACK_SPEED.get());
+            modifiers.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon Attack Speed", attackSpeed, AttributeModifier.Operation.ADDITION));
+
+        }
+        return modifiers;
+    }
+
 
 
     // Define a custom tier for the scythe
     private static class MaliciousScytheTier implements Tier {
         @Override
         public int getUses() {
-            return 2468; // durability
+            return 1500; // durability
         }
 
         @Override
@@ -85,6 +112,7 @@ public class MaliciousScytheItem extends SwordItem {
                 hitCount++;
                 tag.putInt("HitCount", hitCount); // update and store hitCount
                 if (hitCount % Config.MALICIOUS_SCYTHE_HIT_AMOUNT.get() == 0) {
+                    // spawn particles
                     radius = Config.MALICIOUS_SCYTHE_DEVASTATING_RADIUS.get(); // change to 8x8 area damage every 5 hits
                     SoundEvent pixelScythe = (SoundEvent) BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("gobsarmory:pixel_scythe"));
                     level.playSound(null, targetX, targetY, targetZ, Objects.requireNonNull(pixelScythe), SoundSource.PLAYERS, 1.0F, 1.5F);
@@ -95,13 +123,15 @@ public class MaliciousScytheItem extends SwordItem {
                 float baseDamage = (float) pAttacker.getAttributeValue(Attributes.ATTACK_DAMAGE); //half of player attack damage
                 // add damage bonus from sharpness enchantment
                 int sharpnessLevel = pAttacker.getMainHandItem().getEnchantmentLevel(Enchantments.SHARPNESS);
-                float enchantmentBonus = sharpnessLevel * 1.25F; // bonus per level of Sharpness
+                float enchantmentBonus = sharpnessLevel * 0.50F; // bonus per level of Sharpness
 
                 // total damage to be applied to the attackers target
                 float totalDamage = baseDamage + enchantmentBonus;
 
                 // area damage is half of the total damage for 4x4 area and full damage for 8x8 area
-                float areaDamage = (radius == Config.MALICIOUS_SCYTHE_DEVASTATING_RADIUS.get()) ? totalDamage : totalDamage / 4.0F;
+                float areaDamage = (radius == Config.MALICIOUS_SCYTHE_DEVASTATING_RADIUS.get()) ?
+                        (float) ((float) totalDamage / Config.MALICIOUS_SCYTHE_DEVASTATING_AREA_DAMAGE.get()) :
+                        (float) (totalDamage / Config.MALICIOUS_SCYTHE_DEFAULT_AREA_DAMAGE.get());
                 // get all entities in the area
                 List<LivingEntity> nearbyEntities = level.getEntitiesOfClass(LivingEntity.class, area);
 
