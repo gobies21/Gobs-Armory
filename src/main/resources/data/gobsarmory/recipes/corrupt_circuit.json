@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "cbb",
+    "bab",
+    "bbc"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:nether_star"
+    },
+    "b": {
+      "item": "minecraft:obsidian"
+    },
+    "c": {
+      "item": "gobsarmory:ion_cube"
+    }
+  },
+  "result": {
+    "item": "gobsarmory:corrupt_circuit",
+    "count": 2
+  }
+}

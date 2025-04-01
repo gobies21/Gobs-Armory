@@ -4,10 +4,8 @@ import com.mojang.logging.LogUtils;
 import net.gobies.gobsarmory.init.GobsArmorySounds;
 import net.gobies.gobsarmory.item.ModCreativeModeTabs;
 import net.gobies.gobsarmory.item.ModItems;
-import net.gobies.gobsarmory.item.weapons.MaliciousScytheItem;
-import net.minecraft.world.item.Item;
+import net.gobies.gobsarmory.loot.ModLootModifiers;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.property.Properties;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,6 +36,8 @@ public class GobsArmory {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModCreativeModeTabs.register(modBus);
+
+        ModLootModifiers.register(modBus);
 
         GobsArmorySounds.REGISTRY.register(modBus);
 

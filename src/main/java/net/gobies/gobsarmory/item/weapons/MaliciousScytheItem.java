@@ -3,7 +3,7 @@ package net.gobies.gobsarmory.item.weapons;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.gobies.gobsarmory.Config;
-import net.gobies.gobsarmory.particle.MaliciousScytheParticles;
+import net.gobies.gobsarmory.item.ModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -22,22 +22,20 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.SweepingEdgeEnchantment;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.NotNull;
-
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
-
-import static net.gobies.gobsarmory.particle.MaliciousScytheParticles.spawnParticles;
+import static net.gobies.gobsarmory.init.GobsArmoryRarities.CYBER;
 
 
 public class MaliciousScytheItem extends SwordItem {
-    public int hitCount = 0;
 
     public MaliciousScytheItem(Properties properties) {
-        super(new MaliciousScytheTier(), 0, 0, new Properties().stacksTo(1).durability(1500).rarity(Rarity.EPIC));
+        super(new MaliciousScytheTier(), 0, 0, new Properties().stacksTo(1).durability(1500).rarity(CYBER));
     }
 
     //speed is appearing before attack sometimes for unknown reason
@@ -57,7 +55,6 @@ public class MaliciousScytheItem extends SwordItem {
         }
         return modifiers;
     }
-
 
 
     // Define a custom tier for the scythe
@@ -89,9 +86,10 @@ public class MaliciousScytheItem extends SwordItem {
 
         @Override
         public @NotNull Ingredient getRepairIngredient() {
-            return Ingredient.of(Items.NETHERITE_INGOT); // repair material
+            return Ingredient.of(ModItems.IonCube.get()); // repair material
         }
     }
+
 
     @Override
     public boolean hurtEnemy(@NotNull ItemStack pStack, @NotNull LivingEntity pTarget, @NotNull LivingEntity pAttacker) {
@@ -138,12 +136,22 @@ public class MaliciousScytheItem extends SwordItem {
                 // deal damage to each nearby entity except the attacker and the target
                 for (LivingEntity entity : nearbyEntities) {
                     if (entity != pAttacker && entity != pTarget) {
-                        entity.hurt(pAttacker.damageSources().mobAttack(pAttacker), areaDamage);
+                        Vec3 attackerPos = player.getEyePosition();
+                        Vec3 entityPos = entity.getEyePosition();
+                        BlockHitResult result = level.clip(new ClipContext(attackerPos, entityPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
+
+                        // check if there is line of sight to the entity
+                        if (result.getType() == HitResult.Type.MISS) {
+                            entity.hurt(pAttacker.damageSources().mobAttack(pAttacker), areaDamage);
+                        } else {
+                            if (result.getType() == HitResult.Type.ENTITY) {
+                                result.getType();
+                            }
+                        }
                     }
                 }
             }
         }
-
         return success;
     }
 
@@ -157,8 +165,6 @@ public class MaliciousScytheItem extends SwordItem {
             return super.canApplyAtEnchantingTable(stack, enchantment);
         }
     }
-
-
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {

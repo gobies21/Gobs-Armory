@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " bb",
+    " ab",
+    "a b"
+  ],
+  "key": {
+    "a": {
+      "item": "gobsarmory:ion_cube"
+    },
+    "b": {
+      "item": "gobsarmory:corrupt_circuit"
+    }
+  },
+  "result": {
+    "item": "gobsarmory:malicious_scythe",
+    "count": 1
+  }
+}

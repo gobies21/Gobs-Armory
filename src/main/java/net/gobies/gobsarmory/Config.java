@@ -47,9 +47,9 @@ public class Config {
         MALICIOUS_SCYTHE_ATTACK_SPEED = BUILDER.comment("Attack speed of malicious scythe").defineInRange("Speed", 0.7, 0.1, 5);
         MALICIOUS_SCYTHE_HIT_AMOUNT = BUILDER.comment("Amount of hits to activate the devastating attack").defineInRange("Amount of Hits", 8, 1, 100);
         MALICIOUS_SCYTHE_DEFAULT_RADIUS = BUILDER.comment("Max radius of default area damage").defineInRange("Default Radius", 4, 1, 10);
-        MALICIOUS_SCYTHE_DEFAULT_AREA_DAMAGE = BUILDER.comment("Damage of default area damage").defineInRange("Default Area Damage is divided by this number (4 = 25% damage)", 4.0, 1.0, 4.0);
+        MALICIOUS_SCYTHE_DEFAULT_AREA_DAMAGE = BUILDER.comment("Damage of default area damage (4 = 25% damage)").defineInRange("Default Area Damage", 4.0, 1.0, 4.0);
         MALICIOUS_SCYTHE_DEVASTATING_RADIUS = BUILDER.comment("Max radius of devastating area damage").defineInRange("Devastating Radius", 8, 1, 20);
-        MALICIOUS_SCYTHE_DEVASTATING_AREA_DAMAGE = BUILDER.comment("Damage of devastating area damage").defineInRange("Devastating Area Damage is divided by this number (1 = 100% damage)", 1.0, 1.0, 4.0);
+        MALICIOUS_SCYTHE_DEVASTATING_AREA_DAMAGE = BUILDER.comment("Damage of devastating area damage (1 = 100% damage)").defineInRange("Devastating Area Damage", 1.0, 1.0, 4.0);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
