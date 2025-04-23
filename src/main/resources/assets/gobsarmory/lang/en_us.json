@@ -1,8 +1,12 @@
 {
   "item.gobsarmory.malicious_scythe": "Malicious Scythe",
+  "item.gobsarmory.cybernetic_cleaver": "Cybernetic Cleaver",
+  "item.gobsarmory.quantum_axe": "Quantum Axe",
+  "item.gobsarmory.hyperwave_bow": "Hyperwave Bow",
   "item.gobsarmory.ion_cube": "Ion Cube",
   "item.gobsarmory.corrupt_circuit": "Corrupt Circuit",
 
+  "effect.gobsarmory.glitched": "Glitched",
 
   "subtitles.pixel_scythe": "Game Over",
   "creativetab.gobsarmory_tab": "Gob's Armory"

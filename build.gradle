@@ -159,6 +159,13 @@ dependencies {
     implementation fg.deobf("curse.maven:creativecore-257814:6109933")
 
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
+    implementation fg.deobf("curse.maven:jade-324717:6271651")
+
+    //implementation fg.deobf("curse.maven:better-combat-by-daedelus-639842:5625757")
+    //implementation fg.deobf("curse.maven:playeranimator-658587:4587214")
+    //implementation fg.deobf("curse.maven:cloth-config-348521:5729105")
+
+    //implementation fg.deobf("curse.maven:epic-fight-mod-405076:6145747")
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html

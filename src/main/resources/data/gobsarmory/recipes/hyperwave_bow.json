@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    " bb",
-    " ab",
-    "a  "
+    "cb ",
+    "cab ",
+    "cb  "
   ],
   "key": {
     "a": {
@@ -12,10 +12,13 @@
     },
     "b": {
       "item": "gobsarmory:corrupt_circuit"
+    },
+    "c": {
+      "item": "minecraft:string"
     }
   },
   "result": {
-    "item": "gobsarmory:malicious_scythe",
+    "item": "gobsarmory:hyperwave_bow",
     "count": 1
   }
 }

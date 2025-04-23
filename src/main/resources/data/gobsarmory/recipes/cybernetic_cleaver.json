@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    " bb",
-    " ab",
-    "a  "
+    " b ",
+    "aba ",
+    " a  "
   ],
   "key": {
     "a": {
@@ -15,7 +15,7 @@
     }
   },
   "result": {
-    "item": "gobsarmory:malicious_scythe",
+    "item": "gobsarmory:cybernetic_cleaver",
     "count": 1
   }
 }

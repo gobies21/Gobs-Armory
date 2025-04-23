@@ -17,6 +17,9 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("creativetab.gobsarmory_tab"))
                     .displayItems((pParameters, pOutput) -> {
                         pOutput.accept(ModItems.MaliciousScythe.get());
+                        pOutput.accept(ModItems.CyberneticCleaver.get());
+                        pOutput.accept(ModItems.QuantumAxe.get());
+                        pOutput.accept(ModItems.HyperwaveBow.get());
                         pOutput.accept(ModItems.IonCube.get());
                         pOutput.accept(ModItems.CorruptCircuit.get());
                     })

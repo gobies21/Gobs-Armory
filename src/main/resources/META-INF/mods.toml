@@ -5,7 +5,7 @@ license = "All Rights Reserved"
 
 [[mods]]
 modId="gobsarmory"
-version="1.0.0"
+version="1.0.5"
 displayName="Gob's Armory"
 authors="gobies"
 description='''Special and unique endgame weapons for your adventures!'''

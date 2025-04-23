@@ -1,0 +1,17 @@
+{
+  "type": "epicfight:spear",
+  "attributes": {
+    "common": {
+      "armor_negation": 2.0,
+      "impact": 2.2,
+      "max_strikes": 1,
+      "damage_bonus": 0.0,
+      "speed_bonus": 0.0
+    }
+  },
+  "collider": {
+    "number": 3,
+    "center": [0.0, 0.0, -0.85],
+    "size": [0.6, 0.6, 0.85]
+  }
+}

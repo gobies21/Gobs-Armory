@@ -4,7 +4,7 @@
   "pattern": [
     " bb",
     " ab",
-    "a  "
+    " a  "
   ],
   "key": {
     "a": {
@@ -15,7 +15,7 @@
     }
   },
   "result": {
-    "item": "gobsarmory:malicious_scythe",
+    "item": "gobsarmory:quantum_axe",
     "count": 1
   }
 }

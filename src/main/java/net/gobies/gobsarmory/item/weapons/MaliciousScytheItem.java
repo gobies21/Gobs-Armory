@@ -4,7 +4,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.gobies.gobsarmory.Config;
 import net.gobies.gobsarmory.item.ModItems;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -12,6 +11,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -25,6 +25,7 @@ import net.minecraft.world.item.enchantment.SweepingEdgeEnchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
@@ -111,8 +112,9 @@ public class MaliciousScytheItem extends SwordItem {
                 tag.putInt("HitCount", hitCount); // update and store hitCount
                 if (hitCount % Config.MALICIOUS_SCYTHE_HIT_AMOUNT.get() == 0) {
                     // spawn particles
+                    //MaliciousScytheParticles.spawnParticles(level, new Vec3(targetX, targetY, targetZ));
                     radius = Config.MALICIOUS_SCYTHE_DEVASTATING_RADIUS.get(); // change to 8x8 area damage every 5 hits
-                    SoundEvent pixelScythe = (SoundEvent) BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("gobsarmory:pixel_scythe"));
+                    SoundEvent pixelScythe = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("gobsarmory:pixel_scythe"));
                     level.playSound(null, targetX, targetY, targetZ, Objects.requireNonNull(pixelScythe), SoundSource.PLAYERS, 1.0F, 1.5F);
                     tag.putInt("HitCount", 0); // reset hitCount
                 }
@@ -136,6 +138,10 @@ public class MaliciousScytheItem extends SwordItem {
                 // deal damage to each nearby entity except the attacker and the target
                 for (LivingEntity entity : nearbyEntities) {
                     if (entity != pAttacker && entity != pTarget) {
+                        if (entity instanceof TamableAnimal && ((TamableAnimal) entity).isTame()) {
+                            continue; // Skip this entity if it is tamed
+                        }
+
                         Vec3 attackerPos = player.getEyePosition();
                         Vec3 entityPos = entity.getEyePosition();
                         BlockHitResult result = level.clip(new ClipContext(attackerPos, entityPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
