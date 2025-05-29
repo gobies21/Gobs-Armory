@@ -6,12 +6,12 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class GobsArmorySounds {
+public class GASounds {
 
     public static final DeferredRegister<SoundEvent> REGISTRY;
     public static final RegistryObject<SoundEvent> PIXEL_SCYTHE;
 
-    public GobsArmorySounds() {
+    public GASounds() {
     }
 
     static {

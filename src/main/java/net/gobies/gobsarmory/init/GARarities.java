@@ -3,11 +3,11 @@ package net.gobies.gobsarmory.init;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Rarity;
 
-public class GobsArmoryRarities {
+public class GARarities {
 
     public static Rarity CYBER;
 
-    public GobsArmoryRarities() {
+    public GARarities() {
     }
 
     static {

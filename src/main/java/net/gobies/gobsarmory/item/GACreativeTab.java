@@ -9,19 +9,19 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModCreativeModeTabs {
+public class GACreativeTab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, GobsArmory.MOD_ID);
-    public static final RegistryObject<CreativeModeTab> MORE_ARTIFACTS_TAB = CREATIVE_MODE_TABS.register("gobsarmory_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.MaliciousScythe.get()))
+    public static final RegistryObject<CreativeModeTab> GOBSARMORY_TAB = CREATIVE_MODE_TABS.register("gobsarmory_tab",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(GAItems.MaliciousScythe.get()))
                     .title(Component.translatable("creativetab.gobsarmory_tab"))
                     .displayItems((pParameters, pOutput) -> {
-                        pOutput.accept(ModItems.MaliciousScythe.get());
-                        pOutput.accept(ModItems.CyberneticCleaver.get());
-                        pOutput.accept(ModItems.QuantumAxe.get());
-                        pOutput.accept(ModItems.HyperwaveBow.get());
-                        pOutput.accept(ModItems.IonCube.get());
-                        pOutput.accept(ModItems.CorruptCircuit.get());
+                        pOutput.accept(GAItems.MaliciousScythe.get());
+                        pOutput.accept(GAItems.CyberneticCleaver.get());
+                        //pOutput.accept(GAItems.QuantumAxe.get());
+                        //pOutput.accept(GAItems.HyperwaveBow.get());
+                        pOutput.accept(GAItems.IonCube.get());
+                        pOutput.accept(GAItems.CorruptCircuit.get());
                     })
                     .build());
 

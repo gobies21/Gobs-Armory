@@ -1,10 +1,11 @@
 package net.gobies.gobsarmory;
 
 import com.mojang.logging.LogUtils;
-import net.gobies.gobsarmory.init.GobsArmoryEffects;
-import net.gobies.gobsarmory.init.GobsArmorySounds;
-import net.gobies.gobsarmory.item.ModCreativeModeTabs;
-import net.gobies.gobsarmory.item.ModItems;
+import net.gobies.gobsarmory.init.GAEffects;
+import net.gobies.gobsarmory.init.GAProperties;
+import net.gobies.gobsarmory.init.GASounds;
+import net.gobies.gobsarmory.item.GAItems;
+import net.gobies.gobsarmory.item.GACreativeTab;
 import net.gobies.gobsarmory.loot.ModLootModifiers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -13,6 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.util.thread.SidedThreadGroups;
 import org.slf4j.Logger;
@@ -23,10 +25,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static net.gobies.gobsarmory.GobsArmory.MOD_ID;
-
-
-@Mod(MOD_ID)
+@Mod(GobsArmory.MOD_ID)
 public class GobsArmory {
 
     public static final String MOD_ID = "gobsarmory";
@@ -36,19 +35,25 @@ public class GobsArmory {
     public GobsArmory() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModCreativeModeTabs.register(modBus);
+        GACreativeTab.register(modBus);
 
         ModLootModifiers.register(modBus);
 
-        GobsArmorySounds.REGISTRY.register(modBus);
+        GASounds.REGISTRY.register(modBus);
 
-        GobsArmoryEffects.REGISTRY.register(modBus);
+        GAEffects.REGISTRY.register(modBus);
 
-        ModItems.register(modBus);
+        GAItems.register(modBus);
+
+        modBus.addListener(this::clientSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    private void clientSetup(final FMLClientSetupEvent event) {
+        GAProperties.addItemProperties();
     }
 
 

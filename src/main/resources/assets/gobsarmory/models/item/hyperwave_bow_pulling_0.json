@@ -1,0 +1,6 @@
+{
+    "parent": "gobsarmory:item/hyperwave_bow",
+    "textures": {
+        "layer0": "gobsarmory:item/hyperwave_bow_pulling_0"
+    }
+}

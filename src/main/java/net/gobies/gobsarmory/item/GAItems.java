@@ -16,7 +16,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModItems {
+public class GAItems {
     public static final DeferredRegister<Item> ITEMS;
     public static final RegistryObject<Item> MaliciousScythe;
     public static final RegistryObject<Item> CyberneticCleaver;
@@ -25,7 +25,7 @@ public class ModItems {
     public static final RegistryObject<Item> IonCube;
     public static final RegistryObject<Item> CorruptCircuit;
 
-    public ModItems() {
+    public GAItems() {
     }
 
     public static void register(IEventBus eventBus) {
