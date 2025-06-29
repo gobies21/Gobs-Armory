@@ -1,4 +1,4 @@
-package net.gobies.gobsarmory.item;
+package net.gobies.gobsarmory.init;
 
 import net.gobies.gobsarmory.GobsArmory;
 import net.minecraft.core.registries.Registries;

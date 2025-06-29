@@ -5,7 +5,7 @@ import com.google.common.collect.Multimap;
 import net.gobies.gobsarmory.Config;
 import net.gobies.gobsarmory.init.GAEffects;
 import net.gobies.gobsarmory.init.GARarities;
-import net.gobies.gobsarmory.item.GAItems;
+import net.gobies.gobsarmory.init.GAItems;
 
 import java.util.Random;
 
@@ -108,6 +108,7 @@ public class CyberneticCleaverItem extends SwordItem {
             return Ingredient.of(GAItems.IonCube.get());
         }
     }
+
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.literal("§2Many powerful viruses formed into one entity"));

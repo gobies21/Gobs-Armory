@@ -1,6 +1,5 @@
 package net.gobies.gobsarmory.init;
 
-import net.gobies.gobsarmory.item.GAItems;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

@@ -1,11 +1,12 @@
 package net.gobies.gobsarmory;
 
 import com.mojang.logging.LogUtils;
+import net.gobies.gobsarmory.client.MaliciousScytheRenderer;
 import net.gobies.gobsarmory.init.GAEffects;
 import net.gobies.gobsarmory.init.GAProperties;
 import net.gobies.gobsarmory.init.GASounds;
-import net.gobies.gobsarmory.item.GAItems;
-import net.gobies.gobsarmory.item.GACreativeTab;
+import net.gobies.gobsarmory.init.GAItems;
+import net.gobies.gobsarmory.init.GACreativeTab;
 import net.gobies.gobsarmory.loot.ModLootModifiers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -54,6 +55,7 @@ public class GobsArmory {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         GAProperties.addItemProperties();
+        MinecraftForge.EVENT_BUS.register(MaliciousScytheRenderer.class);
     }
 
 
@@ -69,8 +71,8 @@ public class GobsArmory {
             if (event.phase == TickEvent.Phase.END) {
                 List<AbstractMap.SimpleEntry<Runnable, Integer>> actions = new ArrayList<>();
                 workQueue.forEach((work) -> {
-                    work.setValue((Integer) work.getValue() - 1);
-                    if ((Integer) work.getValue() == 0) {
+                    work.setValue(work.getValue() - 1);
+                    if (work.getValue() == 0) {
                         actions.add(work);
                     }
 
