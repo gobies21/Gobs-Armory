@@ -7,6 +7,9 @@
   "item.gobsarmory.voidstep_piercer": "Voidstep Piercer",
   "item.gobsarmory.corrupt_circuit": "Corrupt Circuit",
 
+  "tooltip.gobsarmory.voidstep_piercer.lore": "Void infused trident from the depths of the end",
+  "tooltip.gobsarmory.voidstep_piercer.teleport": "Allows teleportation and grants a buff when teleported",
+
   "effect.gobsarmory.bugged": "Bugged",
 
   "subtitles.pixel_scythe": "Game Over",

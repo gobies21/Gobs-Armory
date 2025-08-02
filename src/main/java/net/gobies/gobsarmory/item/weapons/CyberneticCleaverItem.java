@@ -1,14 +1,10 @@
 package net.gobies.gobsarmory.item.weapons;
 
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import net.gobies.gobsarmory.Config;
 import net.gobies.gobsarmory.init.GAEffects;
 import net.gobies.gobsarmory.init.GARarities;
-import net.gobies.gobsarmory.init.GAItems;
-
-import java.util.Random;
-
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -18,12 +14,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Random;
 
 public class CyberneticCleaverItem extends SwordItem {
     private long lastHitTime = 0;
@@ -34,7 +30,7 @@ public class CyberneticCleaverItem extends SwordItem {
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create(super.getAttributeModifiers(slot, stack));
+        Multimap<Attribute, AttributeModifier> modifiers = LinkedHashMultimap.create(super.getAttributeModifiers(slot, stack));
         if (slot == EquipmentSlot.MAINHAND) {
             modifiers.removeAll(Attributes.ATTACK_DAMAGE);
             modifiers.removeAll(Attributes.ATTACK_SPEED);

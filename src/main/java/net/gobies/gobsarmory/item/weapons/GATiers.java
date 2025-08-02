@@ -12,6 +12,7 @@ public class GATiers {
     public static final CyberTier CYBER_TIER = new CyberTier();
     public static final EnderTier ENDER_TIER = new EnderTier();
 
+    // CyberTier class
     public static class CyberTier implements Tier {
         @Override
         public int getUses() {

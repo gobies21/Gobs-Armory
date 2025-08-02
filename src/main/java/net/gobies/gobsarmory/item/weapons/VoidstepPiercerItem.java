@@ -1,10 +1,11 @@
 package net.gobies.gobsarmory.item.weapons;
 
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import net.gobies.gobsarmory.Config;
 import net.gobies.gobsarmory.init.GARarities;
 import net.gobies.gobsarmory.projectile.VoidstepPiercerProjectile;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -19,7 +20,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.SweepingEdgeEnchantment;
@@ -38,7 +38,7 @@ public class VoidstepPiercerItem extends TridentItem {
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create(super.getAttributeModifiers(slot, stack));
+        Multimap<Attribute, AttributeModifier> modifiers = LinkedHashMultimap.create(super.getAttributeModifiers(slot, stack));
         if (slot == EquipmentSlot.MAINHAND) {
             modifiers.removeAll(Attributes.ATTACK_DAMAGE);
             modifiers.removeAll(Attributes.ATTACK_SPEED);
@@ -121,6 +121,8 @@ public class VoidstepPiercerItem extends TridentItem {
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
+        pTooltipComponents.add(Component.translatable("tooltip.gobsarmory.voidstep_piercer.lore").withStyle(ChatFormatting.DARK_PURPLE));
+        pTooltipComponents.add(Component.translatable("tooltip.gobsarmory.voidstep_piercer.teleport").withStyle(ChatFormatting.LIGHT_PURPLE));
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }

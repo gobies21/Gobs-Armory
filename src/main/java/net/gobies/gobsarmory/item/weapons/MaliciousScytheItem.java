@@ -1,6 +1,6 @@
 package net.gobies.gobsarmory.item.weapons;
 
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import net.gobies.gobsarmory.Config;
 import net.gobies.gobsarmory.init.GARarities;
@@ -37,10 +37,9 @@ public class MaliciousScytheItem extends SwordItem {
         super(GATiers.CYBER_TIER, 0, 0, properties.stacksTo(1).durability(1500).rarity(GARarities.CYBER));
     }
 
-    //speed is appearing before attack sometimes for unknown reason
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create(super.getAttributeModifiers(slot, stack));
+        Multimap<Attribute, AttributeModifier> modifiers = LinkedHashMultimap.create(super.getAttributeModifiers(slot, stack));
         if (slot == EquipmentSlot.MAINHAND) {
             modifiers.removeAll(Attributes.ATTACK_DAMAGE);
             modifiers.removeAll(Attributes.ATTACK_SPEED);

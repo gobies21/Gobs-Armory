@@ -112,8 +112,8 @@ public class Config {
         BUILDER.push("Voidstep_Piercer");
         VOIDSTEP_PIERCER_ATTACK_DAMAGE = BUILDER.comment("Attack damage of voidstep piercer").defineInRange("Attack_Damage", 12, 1, 100);
         VOIDSTEP_PIERCER_ATTACK_SPEED = BUILDER.comment("Attack speed of voidstep piercer").defineInRange("Attack_Speed", 1.1, 0.1, 5);
-        VOIDSTEP_PIERCER_TELEPORT_SPEED = BUILDER.comment("Speed of the voidstep piercer's ender pearl").defineInRange("Teleport_Speed", 2.0, 1.0, 10.0);
-        VOIDSTEP_PIERCER_COOLDOWN = BUILDER.comment("Cooldown of the voidstep piercer's teleport in seconds").defineInRange("Cooldown", 5, 1, 50);
+        VOIDSTEP_PIERCER_TELEPORT_SPEED = BUILDER.comment("Speed of the voidstep piercer's ender pearl").defineInRange("Projectile_Speed", 2.5, 1.0, 10.0);
+        VOIDSTEP_PIERCER_COOLDOWN = BUILDER.comment("Cooldown of the voidstep piercer's teleport in seconds").defineInRange("Cooldown", 8, 1, 50);
         BUILDER.pop();
 
         SPEC = BUILDER.build();

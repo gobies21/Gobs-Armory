@@ -1,6 +1,6 @@
 package net.gobies.gobsarmory.item.weapons;
 
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import net.gobies.gobsarmory.Config;
 import net.gobies.gobsarmory.GobsArmory;
@@ -44,7 +44,7 @@ public class QuantumAxeItem extends AxeItem {
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create(super.getAttributeModifiers(slot, stack));
+        Multimap<Attribute, AttributeModifier> modifiers = LinkedHashMultimap.create(super.getAttributeModifiers(slot, stack));
         if (slot == EquipmentSlot.MAINHAND) {
             modifiers.removeAll(Attributes.ATTACK_DAMAGE);
             modifiers.removeAll(Attributes.ATTACK_SPEED);
