@@ -3,11 +3,13 @@ package net.gobies.gobsarmory.item.weapons;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.gobies.gobsarmory.Config;
+import net.gobies.gobsarmory.GobsArmory;
 import net.gobies.gobsarmory.init.GARarities;
 import net.gobies.gobsarmory.init.GAItems;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -15,14 +17,30 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class QuantumAxeItem extends AxeItem {
+    private static final UUID DAMAGE_BOOST = UUID.fromString("00000000-0000-0000-0000-000000000005");
+    private static final Map<Player, Integer> cooldowns = new HashMap<>();
+
     public QuantumAxeItem(Properties properties) {
-        super(new QuantumAxeItem.QuantumAxeTier(), 0, 0, properties.stacksTo(1).durability(1500).rarity(GARarities.CYBER));
+        super(GATiers.CYBER_TIER, 0, 0, properties.stacksTo(1).durability(1500).rarity(GARarities.CYBER));
     }
 
-    private int attackCount = 0;
+    static {
+        MinecraftForge.EVENT_BUS.register(QuantumAxeItem.class);
+    }
+
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
@@ -41,55 +59,7 @@ public class QuantumAxeItem extends AxeItem {
         return modifiers;
     }
 
-    public boolean hurtEnemy(@NotNull ItemStack stack, LivingEntity target, @NotNull LivingEntity attacker) {
-        // Get the player's attack damage
-        float playerAttackDamage = attacker instanceof Player ? ((Player) attacker).getAttackStrengthScale(0.5F) * 2.0F : 0.0F;
+    // Implement method where every critical hit then disables critical hits for 5 seconds, during these 5 seconds increases
+    // Damage by 20% every hit for the duration, after the duration is over reset damage and re-enable critical hits
 
-        // Calculate the armor ignore percentage, up to a maximum of 100%
-        float armorIgnorePercentage = Math.min(attackCount * 25.0F, 100.0F) / 100.0F;
-        float effectiveArmor = target.getArmorValue() * (1.0F - armorIgnorePercentage); // Adjust the effective armor based on the ignore percentage
-
-        // Calculate the damage after accounting for armor reduction
-        float damage = playerAttackDamage - effectiveArmor;
-        if (damage > 0.0F) {
-            assert attacker instanceof Player;
-            target.hurt(target.damageSources().playerAttack((Player) attacker), damage); // Deal the calculated damage
-        }
-
-        attackCount++; // Increment the attack count each time the axe hits an entity
-
-        return true;
-    }
-
-    private static class QuantumAxeTier implements Tier {
-        @Override
-        public int getUses() {
-            return 1500;
-        }
-
-        @Override
-        public float getSpeed() {
-            return 6.0F;
-        }
-
-        @Override
-        public float getAttackDamageBonus() {
-            return 0.0F;
-        }
-
-        @Override
-        public int getLevel() {
-            return 6;
-        }
-
-        @Override
-        public int getEnchantmentValue() {
-            return 20;
-        }
-
-        @Override
-        public @NotNull Ingredient getRepairIngredient() {
-            return Ingredient.of(GAItems.IonCube.get());
-        }
-    }
 }

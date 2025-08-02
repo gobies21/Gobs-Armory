@@ -1,8 +1,6 @@
 {
   "pack": {
-    "description": {
-      "text": "gobsarmory resources"
-    },
+    "description": "gobsarmory resources",
     "pack_format": 15
   }
 }

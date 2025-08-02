@@ -5,7 +5,7 @@ license = "All Rights Reserved"
 
 [[mods]]
 modId="gobsarmory"
-version="1.0.5"
+version="1.1.0"
 displayName="Gob's Armory"
 authors="gobies"
 description='''Special and unique endgame weapons for your adventures!'''
@@ -23,3 +23,6 @@ mandatory= true
 versionRange = "[1.20.1]"
 ordering="NONE"
 side="BOTH"
+
+[modproperties.gobsarmory]
+configuredBackground="minecraft:textures/block/stone_bricks.png"

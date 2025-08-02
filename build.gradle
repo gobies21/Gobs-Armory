@@ -142,7 +142,7 @@ dependencies {
     implementation fg.deobf("curse.maven:neat-238372:5838485")
 
     //implementation fg.deobf("curse.maven:blessfulled-1182590:6174088")
-    implementation fg.deobf("curse.maven:retro-damage-indicators-1003431:5268035")
+    implementation fg.deobf("curse.maven:blessfulled-1182590:6624691")
 
     implementation fg.deobf("curse.maven:model-gap-fix-676136:5200949")
 
@@ -154,6 +154,7 @@ dependencies {
 
     implementation fg.deobf("curse.maven:off-hand-combat-417112:5020562")
     implementation fg.deobf("curse.maven:architectury-api-419699:5137938")
+    runtimeOnly(fg.deobf("curse.maven:configured-457570:5180900"))
 
     //implementation fg.deobf("curse.maven:better-combat-by-daedelus-639842:5625757")
     //implementation fg.deobf("curse.maven:playeranimator-658587:4587214")

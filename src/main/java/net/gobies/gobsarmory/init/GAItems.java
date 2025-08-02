@@ -4,10 +4,7 @@ import net.gobies.gobsarmory.GobsArmory;
 import net.gobies.gobsarmory.item.materials.CorruptCircuitItem;
 import net.gobies.gobsarmory.item.materials.IonCubeItem;
 import net.gobies.gobsarmory.item.weapons.*;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -22,8 +19,7 @@ public class GAItems {
     public static final RegistryObject<Item> IonCube;
     public static final RegistryObject<Item> CorruptCircuit;
 
-    public static final RegistryObject<Item> YinKnife;
-    public static final RegistryObject<Item> XinKnife;
+    public static final RegistryObject<Item> VoidstepPiercer;
 
     public GAItems() {
     }
@@ -40,7 +36,7 @@ public class GAItems {
         QuantumAxe = ITEMS.register("quantum_axe", () -> new QuantumAxeItem(new AxeItem.Properties()));
         IonCube = ITEMS.register("ion_cube", () -> new IonCubeItem(new Item.Properties()));
         CorruptCircuit = ITEMS.register("corrupt_circuit", () -> new CorruptCircuitItem(new Item.Properties()));
-        YinKnife = ITEMS.register("yin_knife", () -> new YinKnifeItem(new SwordItem.Properties()));
-        XinKnife = ITEMS.register("xin_knife", () -> new XinKnifeItem(new SwordItem.Properties()));
+
+        VoidstepPiercer = ITEMS.register("voidstep_piercer", () -> new VoidstepPiercerItem(new TridentItem.Properties()));
     }
 }

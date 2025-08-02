@@ -1,13 +1,12 @@
 package net.gobies.gobsarmory;
 
 import com.mojang.logging.LogUtils;
-import net.gobies.gobsarmory.client.MaliciousScytheRenderer;
+import net.gobies.gobsarmory.client.MaliciousScytheOverlay;
 import net.gobies.gobsarmory.init.GAEffects;
 import net.gobies.gobsarmory.init.GAProperties;
 import net.gobies.gobsarmory.init.GASounds;
 import net.gobies.gobsarmory.init.GAItems;
 import net.gobies.gobsarmory.init.GACreativeTab;
-import net.gobies.gobsarmory.loot.ModLootModifiers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -38,11 +37,9 @@ public class GobsArmory {
 
         GACreativeTab.register(modBus);
 
-        ModLootModifiers.register(modBus);
+        GASounds.register(modBus);
 
-        GASounds.REGISTRY.register(modBus);
-
-        GAEffects.REGISTRY.register(modBus);
+        GAEffects.register(modBus);
 
         GAItems.register(modBus);
 
@@ -55,16 +52,15 @@ public class GobsArmory {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         GAProperties.addItemProperties();
-        MinecraftForge.EVENT_BUS.register(MaliciousScytheRenderer.class);
+        MinecraftForge.EVENT_BUS.register(MaliciousScytheOverlay.class);
     }
 
 
-        public static void queueServerWork ( int tick, Runnable action){
-            if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER) {
-                workQueue.add(new AbstractMap.SimpleEntry<>(action, tick));
-            }
+    public static void queueServerWork ( int tick, Runnable action) {
+        if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER) {
+            workQueue.add(new AbstractMap.SimpleEntry<>(action, tick));
         }
-
+    }
 
         @SubscribeEvent
         public void tick (TickEvent.ServerTickEvent event){
@@ -77,7 +73,7 @@ public class GobsArmory {
                     }
 
                 });
-                actions.forEach((e) -> ((Runnable) e.getKey()).run());
+                actions.forEach((e) -> (e.getKey()).run());
                 workQueue.removeAll(actions);
             }
 

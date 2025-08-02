@@ -4,8 +4,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.gobies.gobsarmory.Config;
 import net.gobies.gobsarmory.init.GARarities;
-import net.gobies.gobsarmory.init.GAItems;
-import net.gobies.gobsarmory.particle.MaliciousScytheParticles;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +18,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -37,7 +34,7 @@ import java.util.Objects;
 public class MaliciousScytheItem extends SwordItem {
 
     public MaliciousScytheItem(Properties properties) {
-        super(new MaliciousScytheTier(), 0, 0, properties.stacksTo(1).durability(1500).rarity(GARarities.CYBER));
+        super(GATiers.CYBER_TIER, 0, 0, properties.stacksTo(1).durability(1500).rarity(GARarities.CYBER));
     }
 
     //speed is appearing before attack sometimes for unknown reason
@@ -58,44 +55,10 @@ public class MaliciousScytheItem extends SwordItem {
         return modifiers;
     }
 
-
-    private static class MaliciousScytheTier implements Tier {
-        @Override
-        public int getUses() {
-            return 1500; // durability
-        }
-
-        @Override
-        public float getSpeed() {
-            return 6.0F;
-        }
-
-        @Override
-        public float getAttackDamageBonus() {
-            return 0.0F;
-        }
-
-        @Override
-        public int getLevel() {
-            return 6; // material level
-        }
-
-        @Override
-        public int getEnchantmentValue() {
-            return 20;
-        }
-
-        @Override
-        public @NotNull Ingredient getRepairIngredient() {
-            return Ingredient.of(GAItems.IonCube.get());
-        }
-    }
-
     @Override
     public @NotNull AABB getSweepHitBox(@NotNull ItemStack stack, @NotNull Player player, @NotNull Entity target) {
         return target.getBoundingBox().inflate(4.0D, 0.25D, 4.0D);
     }
-
 
     @Override
     public boolean hurtEnemy(@NotNull ItemStack pStack, @NotNull LivingEntity pTarget, @NotNull LivingEntity pAttacker) {
@@ -115,8 +78,6 @@ public class MaliciousScytheItem extends SwordItem {
                 hitCount++;
                 tag.putInt("HitCount", hitCount);
                 if (hitCount % Config.MALICIOUS_SCYTHE_HIT_AMOUNT.get() == 0) {
-                    // spawn particles
-                    MaliciousScytheParticles.tickParticles(level, new Vec3(targetX, targetY, targetZ), (int) radius);
                     radius = Config.MALICIOUS_SCYTHE_DEVASTATING_RADIUS.get(); // change to 8x8 area damage every 5 hits
                     SoundEvent pixelScythe = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("gobsarmory:pixel_scythe"));
                     level.playSound(null, targetX, targetY, targetZ, Objects.requireNonNull(pixelScythe), SoundSource.PLAYERS, 1.0F, 1.5F);
@@ -178,8 +139,8 @@ public class MaliciousScytheItem extends SwordItem {
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
-        CompoundTag tag = pStack.getTag(); // get NBT tag
-        int hitCount = tag != null ? tag.getInt("HitCount") : 0; // read hitCount from NBT
+        CompoundTag tag = pStack.getTag();
+        int hitCount = tag != null ? tag.getInt("HitCount") : 0;
         pTooltipComponents.add(Component.literal("§2A weapon formed from malicious software"));
         pTooltipComponents.add(Component.literal("§aDeals large area damage to nearby enemies"));
         pTooltipComponents.add(Component.literal(String.format("§aEvery §3%d §ahits deal a devastating attack §3" + hitCount +"§3/%d", Config.MALICIOUS_SCYTHE_HIT_AMOUNT.get(), Config.MALICIOUS_SCYTHE_HIT_AMOUNT.get())));

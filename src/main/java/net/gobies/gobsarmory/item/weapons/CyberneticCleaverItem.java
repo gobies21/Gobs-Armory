@@ -29,7 +29,7 @@ public class CyberneticCleaverItem extends SwordItem {
     private long lastHitTime = 0;
 
     public CyberneticCleaverItem(Properties properties) {
-        super(new CyberneticCleaverItem.CyberneticCleaverTier(), 0, 0, properties.stacksTo(1).durability(1500).rarity(GARarities.CYBER));
+        super(GATiers.CYBER_TIER, 0, 0, properties.stacksTo(1).durability(1500).rarity(GARarities.CYBER));
     }
 
     @Override
@@ -74,39 +74,6 @@ public class CyberneticCleaverItem extends SwordItem {
 
         MobEffectInstance newEffect = new MobEffectInstance(GAEffects.BUGGED.get(), finalDuration, newAmplifier, false, false);
         target.addEffect(newEffect, null);
-    }
-
-
-    private static class CyberneticCleaverTier implements Tier {
-        @Override
-        public int getUses() {
-            return 1500;
-        }
-
-        @Override
-        public float getSpeed() {
-            return 6.0F;
-        }
-
-        @Override
-        public float getAttackDamageBonus() {
-            return 0.0F;
-        }
-
-        @Override
-        public int getLevel() {
-            return 6;
-        }
-
-        @Override
-        public int getEnchantmentValue() {
-            return 20;
-        }
-
-        @Override
-        public @NotNull Ingredient getRepairIngredient() {
-            return Ingredient.of(GAItems.IonCube.get());
-        }
     }
 
     @Override
